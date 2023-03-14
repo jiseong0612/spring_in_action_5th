@@ -1,4 +1,4 @@
-package tacos;
+package tacos.controller;
 
 import java.util.Arrays;
 import java.util.List;
@@ -7,10 +7,12 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import lombok.extern.slf4j.Slf4j;
-import tacos.Ingredient.Type;
+import tacos.domain.Ingredient;
+import tacos.domain.Taco;
+import tacos.domain.Ingredient.Type;
 
 @Controller
 @Slf4j
@@ -40,6 +42,14 @@ public class DesignTacoController {
 		model.addAttribute("design", new Taco());
 		return "design";
 	}
+	
+	@PostMapping("/design")
+	public String  processDesign(Taco design) {
+		log.info("Processing design : " + design);
+		
+		return "redirect:/orders/current";
+	}
+	
 
 	private List<Ingredient> filterByType(List<Ingredient> ingredients, Type type) {
 		return ingredients.stream().filter(x -> x.getType().equals(type)).collect(Collectors.toList());
