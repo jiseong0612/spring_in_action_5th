@@ -4,8 +4,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -39,12 +42,16 @@ public class DesignTacoController {
 		for (Type type : types) {
 			model.addAttribute(type.toString().toLowerCase(), filterByType(ingredients, type));
 		}
-		model.addAttribute("design", new Taco());
+		model.addAttribute("taco", new Taco());
 		return "design";
 	}
 	
 	@PostMapping("/design")
-	public String  processDesign(Taco design) {
+	public String  processDesign(@Valid Taco design, Errors errors) {
+		if(errors.hasErrors()) {
+			log.info("error !!! : " + errors);
+			return "design";
+		}
 		log.info("Processing design : " + design);
 		
 		return "redirect:/orders/current";
