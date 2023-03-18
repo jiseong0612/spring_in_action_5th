@@ -7,9 +7,7 @@
 <body>
 	<h1>Design your taco!</h1>
 	<img th:src="@{/images/TacoCloud.png}" />
-
 	<form method="POST" th:object="${taco}">
-
 		<span class="validationError"
 			th:if="${#fields.hasErrors('ingredients')}"
 			th:errors="*{ingredients}">Ingredient Error</span>
@@ -17,63 +15,50 @@
 			<div class="ingredient-group" id="wraps">
 				<h3>Designate your wrap:</h3>
 				<div th:each="ingredient : ${wrap}">
-					<input name="ingredients" type="checkbox" th:id="${'wrap'+ingredientStat.index}"
-						th:value="${ingredient.id}" />
-						<label th:for="${'wrap'+ingredientStat.index}">
-							<span th:text="${ingredient.name}">INGREDIENT</span><br />
-						</label>
+					<input name="ingredients" type="checkbox" th:id="${'wraps' + ingredientStat.index}"
+						th:value="${ingredient.id}" /> <label th:for="${'wraps' + ingredientStat.index}">
+						<span th:text="${ingredient.name}">INGREDIENT</span></label><br />
 				</div>
 			</div>
 			<div class="ingredient-group" id="proteins">
 				<h3>Pick your protein:</h3>
 				<div th:each="ingredient : ${protein}">
-					<input name="ingredients" type="checkbox" th:id="${'protein'+ingredientStat.index}"
-						th:value="${ingredient.id}" /> 
-					<label th:for="${'protein'+ingredientStat.index}">
-						<span th:text="${ingredient.name}">INGREDIENT</span><br />
-					</label>
+					<input name="ingredients" type="checkbox" th:id="${'proteins' + ingredientStat.index}"
+						th:value="${ingredient.id}" /> <label th:for="${'proteins' + ingredientStat.index}">
+						<span th:text="${ingredient.name}">INGREDIENT</span></label><br />
 				</div>
 			</div>
 			<div class="ingredient-group" id="cheeses">
 				<h3>Choose your cheese:</h3>
 				<div th:each="ingredient : ${cheese}">
-					<input name="ingredients" type="checkbox" th:id="${'cheese'+ingredientStat.index}"
-						th:value="${ingredient.id}" /> 
-					<label th:for="${'cheese'+ingredientStat.index}">
-						<span th:text="${ingredient.name}">INGREDIENT</span><br />
-					</label>
+					<input name="ingredients" type="checkbox" th:id="${'cheeses' + ingredientStat.index}"
+						th:value="${ingredient.id}" /> <label th:for="${'cheeses' + ingredientStat.index}">
+						<span th:text="${ingredient.name}">INGREDIENT</span></label><br />
 				</div>
 			</div>
 			<div class="ingredient-group" id="veggies">
 				<h3>Determine your veggies:</h3>
 				<div th:each="ingredient : ${veggies}">
-					<input name="ingredients" type="checkbox" th:id="${'veggies'+ingredientStat.index}"
-						th:value="${ingredient.id}" /> 
-					<label th:for="${'veggies'+ingredientStat.index}">
-						<span th:text="${ingredient.name}">INGREDIENT</span><br />
-					</label>
+					<input name="ingredients" type="checkbox" th:id="${'veggies' + ingredientStat.index}"
+						th:value="${ingredient.id}" /> <label th:for="${'veggies' + ingredientStat.index}">
+						<span th:text="${ingredient.name}">INGREDIENT</span></label><br />
 				</div>
 			</div>
 			<div class="ingredient-group" id="sauces">
 				<h3>Select your sauce:</h3>
 				<div th:each="ingredient : ${sauce}">
-					<input name="ingredients" type="checkbox" th:id="${'sauce'+ingredientStat.index}"
-						th:value="${ingredient.id}" /> 
-					<label th:for="${'sauce'+ingredientStat.index}">
-						<span th:text="${ingredient.name}">INGREDIENT</span><br />
-					</label>
+					<input name="ingredients" type="checkbox" th:id="${'sauces' + ingredientStat.index}"
+						th:value="${ingredient.id}" /> <label th:for="${'sauces' + ingredientStat.index}">
+						<span th:text="${ingredient.name}">INGREDIENT</span></label><br />
 				</div>
 			</div>
 		</div>
 		<div>
 			<h3>Name your taco creation:</h3>
-			<input type="text" th:field="*{name}"> 
-			<span th:if="${#fields.hasErrors('name')}">XXX</span>
-			<span class="validationError" 
-				th:if="${#fields.hasErrors('name')}"
-				th:errors="*{name}">Name Error </span> 
-			<br>
-				
+			<input type="text" th:field="*{name}" /> <span
+				class="validationError" th:if="${#fields.hasErrors('name')}"
+				th:errors="*{name}">Name Error</span> <br />
+
 			<button>Submit your taco</button>
 		</div>
 	</form>
