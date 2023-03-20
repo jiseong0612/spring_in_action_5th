@@ -10,8 +10,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	
 	@Autowired
 	DataSource dataSource;
+	
 	/**
 	 * Http 보안을 구성 한다
 	 */
@@ -28,7 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 * 사용자 인증 정보를 구성한다.
 	 */
 	public void configure(AuthenticationManagerBuilder auth)throws Exception{
-		auth.jdbcAuthentication()
+		auth
+		.jdbcAuthentication()
 		.dataSource(dataSource);
 		/*
 		 * auth.inMemoryAuthentication() .withUser("user1") .password("{noop}password1")
