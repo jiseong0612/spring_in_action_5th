@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -32,7 +33,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(AuthenticationManagerBuilder auth)throws Exception{
 		auth
 		.jdbcAuthentication()
-		.dataSource(dataSource);
+		.dataSource(dataSource)
+		.usersByUsernameQuery(
+		    "select username, password, enabled from users where username=?")
+		.authoritiesByUsernameQuery(
+			"select username, authority from authorities where username=?")
+		.passwordEncoder(new NoEncodingPasswordencoder());//비밀번호 암호화
 		/*
 		 * auth.inMemoryAuthentication() .withUser("user1") .password("{noop}password1")
 		 * .authorities("ROLE_USER") .and() .withUser("user2")
